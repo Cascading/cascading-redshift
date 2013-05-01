@@ -1,14 +1,15 @@
 package redshift;
 
+import cascading.flow.FlowDef;
 import cascading.flow.hadoop.HadoopFlowConnector;
+import cascading.pipe.Pipe;
 import cascading.property.AppProps;
 import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.Tap;
-import cascading.tap.hadoop.Dfs;
 import cascading.tap.hadoop.Hfs;
-import com.twitter.maple.jdbc.TableDesc;
-import org.pingles.org.pingles.cascading.redshift.RedshiftTap;
-
+import cascading.tuple.Fields;
+import org.pingles.cascading.redshift.RedshiftScheme;
+import org.pingles.cascading.redshift.RedshiftTap;
 import java.util.Properties;
 
 public class SampleFlow {
@@ -20,19 +21,32 @@ public class SampleFlow {
         String redshiftPassword = args[4];
 
         Properties properties = new Properties();
+        String accessKey = System.getenv("AWS_ACCESS_KEY_ID");
+        String secretKey = System.getenv("AWS_SECRET_KEY");
+        properties.setProperty("fs.s3n.awsAccessKeyId", accessKey);
+        properties.setProperty("fs.s3n.awsSecretAccessKey", secretKey);
+
         AppProps.setApplicationJarClass(properties, SampleFlow.class);
 
         HadoopFlowConnector flowConnector = new HadoopFlowConnector(properties);
 
-        Tap inTap = new Dfs(new TextDelimited(false, "\t"), inputPath);
+        Tap inTap = new Hfs(new TextDelimited(new Fields("line"), false, "\t"), inputPath);
 
-        String[] columnNames = {"col1", "col2"};
-        String[] columnDefinitions = {""};
-        String[] primaryKeys = {};
-        TableDesc tableDesc = new TableDesc("cascading_redshift_sample", columnNames, columnDefinitions, primaryKeys);
-        Tap outTap = new RedshiftTap(outputPath, redshiftJdbcUrl, redshiftUsername, redshiftPassword, );
+        String tableName = "cascading_redshift_sample";
+        String[] columnNames = {"line"};
+        String[] columnDefinitions = {"VARCHAR(500)"};
+        String distributionKey = "line";
+        String[] sortKeys = {"line"};
+        RedshiftScheme scheme = new RedshiftScheme(new Fields("line"), new Fields("line"), tableName, columnNames, columnDefinitions, distributionKey, sortKeys);
+        Tap outTap = new RedshiftTap(outputPath, accessKey, secretKey, redshiftJdbcUrl, redshiftUsername, redshiftPassword, scheme);
 
-        System.out.println("Hello, world!");
+        //outTap = new Hfs(new TextDelimited(false, "\t"), outputPath);
+
+        Pipe copyPipe = new Pipe("copy");
+        FlowDef flowDef = FlowDef.flowDef().addSource(copyPipe, inTap).addTailSink(copyPipe, outTap);
+
+        flowConnector.connect(flowDef).complete();
+
         return 0;
     }
 }

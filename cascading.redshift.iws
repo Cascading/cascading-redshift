@@ -2,19 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82210733-0cbb-4a90-8ba7-7bc20ad203ef" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftScheme.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftTap.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cascading.redshift.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CopyFromS3Command.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CreateTableCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/DropTableCommand.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftColumn.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcClient.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcCommand.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftScheme.java" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftScheme.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftTap.java" afterPath="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftTap.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java" afterPath="$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cascading.redshift.iml" afterPath="$PROJECT_DIR$/cascading.redshift.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cascading.redshift.ipr" afterPath="$PROJECT_DIR$/cascading.redshift.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cascading.redshift.iws" afterPath="$PROJECT_DIR$/cascading.redshift.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="cascading.redshift.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367410297300" ignored="false" />
-    <file path="/pom.xml" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367411527614" ignored="false" />
-    <file path="/RedshiftTap.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367412684857" ignored="false" />
-    <file path="/RedshiftScheme.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367412658846" ignored="false" />
-    <file path="/SampleFlow.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367413205584" ignored="false" />
-    <file path="/fragment.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367412405672" ignored="false" />
+    <file path="/Dummy.txt" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367417264224" ignored="false" />
+    <file path="/pom.xml" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367419597379" ignored="false" />
+    <file path="/RedshiftTap.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367424981631" ignored="false" />
+    <file path="/RedshiftScheme.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367424688902" ignored="false" />
+    <file path="/SampleFlow.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367425203187" ignored="false" />
+    <file path="/fragment.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367424695773" ignored="false" />
+    <file path="/RedshiftTableDesc.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367417945352" ignored="false" />
+    <file path="/RedshiftColumn.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367417888653" ignored="false" />
+    <file path="/RedshiftJdbcClient.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367425908252" ignored="false" />
+    <file path="/RedshiftJdbcCommand.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367423131574" ignored="false" />
+    <file path="/CreateTableCommand.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367425964615" ignored="false" />
+    <file path="/DropTableCommand.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367425944488" ignored="false" />
+    <file path="/CopyFromS3Command.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367426007446" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +45,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -65,7 +82,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -76,9 +92,18 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="RedshiftTap.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftTap.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftTap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="36" column="20" selection-start="1356" selection-end="1456" vertical-scroll-proportion="0.0">
+            <state line="40" column="53" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RedshiftJdbcClient.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="51" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -89,7 +114,7 @@
       <file leaf-file-name="SampleFlow.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="38" column="42" selection-start="1350" selection-end="1350" vertical-scroll-proportion="0.6651108">
+            <state line="39" column="25" selection-start="1524" selection-end="1524" vertical-scroll-proportion="0.65909094">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -100,19 +125,72 @@
       <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="39" selection-start="1452" selection-end="1452" vertical-scroll-proportion="0.0">
+            <state line="31" column="57" selection-start="1249" selection-end="1249" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="RedshiftScheme.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftScheme.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftScheme.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="42" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
+            <state line="59" column="31" selection-start="2710" selection-end="2710" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CopyFromS3Command.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CopyFromS3Command.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="0" selection-start="1060" selection-end="1060" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DropTableCommand.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/DropTableCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="28" column="34" selection-start="836" selection-end="836" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateTableCommand.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CreateTableCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="64" column="29" selection-start="2311" selection-end="2311" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RedshiftJdbcCommand.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcCommand.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="29" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RedshiftColumn.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftColumn.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="56" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -135,11 +213,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/SampleFlow.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftScheme.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftTap.java" />
+        <option value="$PROJECT_DIR$/src/main/java/redshift/RedshiftTableDesc.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftColumn.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftTableDesc.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftScheme.java" />
         <option value="$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcClient.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/DropTableCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CreateTableCommand.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftTap.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CopyFromS3Command.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcCommand.java" />
       </list>
     </option>
   </component>
@@ -283,20 +371,25 @@
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="OverrideImplement.combined" value="true" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
+    <property name="OverrideImplement.combined" value="true" />
     <property name="options.splitter.main.proportions" value="0.3" />
-    <property name="options.lastSelected" value="preferences.externalResources" />
     <property name="MemberChooser.sorted" value="false" />
-    <property name="FullScreen" value="false" />
+    <property name="options.lastSelected" value="preferences.externalResources" />
     <property name="MemberChooser.showClasses" value="true" />
+    <property name="FullScreen" value="false" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.pingles.cascading.redshift" />
+      <recent name="redshift" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.pingles.cascading.redshift" />
       <recent name="redshift" />
     </key>
   </component>
@@ -313,19 +406,6 @@
       <option name="SHMEM_ADDRESS" value="javadebug" />
       <option name="HOST" value="localhost" />
       <option name="PORT" value="5005" />
-      <method />
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
@@ -353,6 +433,19 @@
       <envs />
       <properties />
       <listeners />
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method />
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -405,28 +498,28 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-126" y="-1043" width="1665" height="1005" extended-state="6" />
+    <frame x="-126" y="-1043" width="1665" height="1005" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20382953" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -494,9 +587,16 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftScheme.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftTap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="42" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="42" selection-start="1350" selection-end="1350" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -510,18 +610,93 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/org/pingles/cascading/redshift/RedshiftTap.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftScheme.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="36" column="20" selection-start="1356" selection-end="1456" vertical-scroll-proportion="0.0">
+        <state line="15" column="42" selection-start="556" selection-end="556" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="57" selection-start="1249" selection-end="1249" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CopyFromS3Command.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="0" selection-start="1060" selection-end="1060" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/CreateTableCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="64" column="29" selection-start="2311" selection-end="2311" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/DropTableCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="28" column="34" selection-start="836" selection-end="836" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftColumn.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="56" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="51" selection-start="771" selection-end="771" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftJdbcCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="29" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftScheme.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="31" selection-start="2710" selection-end="2710" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/pingles/cascading/redshift/RedshiftTap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="53" selection-start="1436" selection-end="1436" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/redshift/SampleFlow.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="42" selection-start="1350" selection-end="1350" vertical-scroll-proportion="0.6651108">
+        <state line="39" column="25" selection-start="1524" selection-end="1524" vertical-scroll-proportion="0.65909094">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

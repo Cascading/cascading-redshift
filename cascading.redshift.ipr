@@ -27,6 +27,9 @@
         <module name="cascading.redshift" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cascading.redshift" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
   <component name="CopyrightManager" default="">
     <module2copyright />
@@ -226,17 +229,6 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/cascading/cascading-hadoop/2.0.3/cascading-hadoop-2.0.3-sources.jar!/" />
-      </SOURCES>
-    </library>
-    <library name="Maven: com.twitter:maple:0.2.7">
-      <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/twitter/maple/0.2.7/maple-0.2.7.jar!/" />
-      </CLASSES>
-      <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/com/twitter/maple/0.2.7/maple-0.2.7-javadoc.jar!/" />
-      </JAVADOC>
-      <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/com/twitter/maple/0.2.7/maple-0.2.7-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: commons-beanutils:commons-beanutils-core:1.8.0">
