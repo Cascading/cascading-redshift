@@ -4,7 +4,7 @@
     <groupId>org.pingles</groupId>
     <artifactId>cascading.redshift</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>cascading.redshift</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -17,13 +17,13 @@
         <dependency>
             <groupId>cascading</groupId>
             <artifactId>cascading-core</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
             <version>2.0.3</version>
         </dependency>
         <dependency>
             <groupId>cascading</groupId>
             <artifactId>cascading-hadoop</artifactId>
-            <scope>compile</scope>
+            <scope>provided</scope>
             <version>2.0.3</version>
         </dependency>
         <dependency>
