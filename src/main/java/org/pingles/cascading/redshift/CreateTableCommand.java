@@ -29,7 +29,6 @@ public class CreateTableCommand implements RedshiftJdbcCommand {
     public void execute(Connection connection) throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute(queryString());
-        LOGGER.info("Createdtable {} with: {}", tableName, queryString());
     }
 
     private String queryString() {

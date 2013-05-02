@@ -22,12 +22,12 @@ public class RedshiftJdbcClient {
     }
 
     public void execute(RedshiftJdbcCommand command) throws SQLException {
-        LOGGER.info("Executing: {}", command.toString());
+        LOGGER.info("execute {}", command.toString());
         command.execute(connection);
     }
 
     public void connect() throws ClassNotFoundException, SQLException {
-        LOGGER.info("Connecting to {} authenticating with {} {}", new Object[] {jdbcUrl, username, password});
+        LOGGER.info("connecting to {} authenticating with {} {}", new Object[] {jdbcUrl, username, password});
 
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(jdbcUrl, username, password);
