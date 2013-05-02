@@ -19,7 +19,7 @@
     <file path="/CreateTableCommand.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367425964615" ignored="false" />
     <file path="/DropTableCommand.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367425944488" ignored="false" />
     <file path="/CopyFromS3Command.java" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367426007446" ignored="false" />
-    <file path="/README.md" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367488020285" ignored="false" />
+    <file path="/README.md" changelist="82210733-0cbb-4a90-8ba7-7bc20ad203ef" time="1367488095649" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +114,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="103" selection-end="1307" vertical-scroll-proportion="0.18953069">
+            <state line="7" column="64" selection-start="254" selection-end="254" vertical-scroll-proportion="0.18953069">
               <folding />
             </state>
           </provider>
@@ -472,7 +472,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20484172" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.20484172" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -657,7 +657,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="103" selection-end="1307" vertical-scroll-proportion="0.18953069">
+        <state line="7" column="64" selection-start="254" selection-end="254" vertical-scroll-proportion="0.18953069">
           <folding />
         </state>
       </provider>

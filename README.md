@@ -2,6 +2,11 @@
 
 Optimistic punt: create redshift tables and sink data via S3
 
+## Usage
+
+cascading.redshift is hosted on [conjars.org](http://conjars.org). You can add conjars.org as a
+maven repository and install the early WIP 0.1-SNAPSHOT release.
+
 ## Sample
 
 ```java
