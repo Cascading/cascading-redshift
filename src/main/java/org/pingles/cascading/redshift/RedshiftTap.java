@@ -1,24 +1,19 @@
 package org.pingles.cascading.redshift;
 
-import cascading.flow.FlowProcess;
 import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.SinkMode;
-import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
-import cascading.tuple.TupleEntryCollector;
-import cascading.tuple.TupleEntryIterator;
 import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.RecordReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.UUID;
 
 public class RedshiftTap extends Hfs {
+    private static final Logger LOGGER = LoggerFactory.getLogger(RedshiftJdbcClient.class);
+
     private final String username;
     private final String password;
     private final RedshiftScheme scheme;
@@ -49,10 +44,10 @@ public class RedshiftTap extends Hfs {
             client.execute(scheme.buildCreateTableCommand());
             client.execute(scheme.buildCopyFromS3Command(s3Uri, s3AccessKey, s3SecretKey));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            LOGGER.error("Couldn't commit to Redshift", e);
             return false;
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("Couldn't commit to Redshift", e);
             return false;
         }
 
