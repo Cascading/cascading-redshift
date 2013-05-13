@@ -18,6 +18,7 @@ public class RedshiftScheme extends Scheme<JobConf, RecordReader, OutputCollecto
     private final String[] columnDefinitions;
     private final String distributionKey;
     private final String[] sortKeys;
+    private String[] copyOptions;
 
     public RedshiftScheme(Fields sourceFields, Fields sinkFields, String tableName, String[] columnNames, String[] columnDefinitions, String distributionKey, String[] sortKeys) {
         super(sourceFields, sinkFields);
@@ -26,6 +27,18 @@ public class RedshiftScheme extends Scheme<JobConf, RecordReader, OutputCollecto
         this.columnDefinitions = columnDefinitions;
         this.distributionKey = distributionKey;
         this.sortKeys = sortKeys;
+    }
+
+    public RedshiftScheme(Fields sourceFields, Fields sinkFields, String tableName, String[] columnNames, String[] columnDefinitions, String distributionKey, String[] sortKeys, String[] copyOptions) {
+        this(sourceFields, sinkFields, tableName, columnNames, columnDefinitions, distributionKey, sortKeys);
+        this.copyOptions = copyOptions;
+    }
+
+    private String[] getCopyOptions() {
+        if (copyOptions == null) {
+            return new String[] {};
+        }
+        return copyOptions;
     }
 
     @Override
@@ -57,6 +70,6 @@ public class RedshiftScheme extends Scheme<JobConf, RecordReader, OutputCollecto
     }
 
     public RedshiftJdbcCommand buildCopyFromS3Command(String uri, String s3AccessKey, String s3SecretKey) {
-        return new CopyFromS3Command(tableName, uri, s3AccessKey, s3SecretKey);
+        return new CopyFromS3Command(tableName, uri, s3AccessKey, s3SecretKey, getCopyOptions());
     }
 }
