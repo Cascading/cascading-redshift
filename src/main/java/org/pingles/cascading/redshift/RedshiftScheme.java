@@ -11,7 +11,9 @@ import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.RecordReader;
 import java.io.IOException;
 
-// Scheme<Config, Input, Output, SourceContext, SinkContext
+// TODO: This isn't _really_ a cascading scheme: since it's only used to build the statements
+// when we've successfully staged the data on S3. Should just make it a regular class
+// rather than extend from Scheme.
 public class RedshiftScheme extends Scheme<JobConf, RecordReader, OutputCollector, Object[], Object[]> {
     private final String tableName;
     private final String[] columnNames;
