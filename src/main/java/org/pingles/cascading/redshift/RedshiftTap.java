@@ -1,5 +1,6 @@
 package org.pingles.cascading.redshift;
 
+import cascading.flow.FlowProcess;
 import cascading.scheme.hadoop.TextDelimited;
 import cascading.scheme.hadoop.TextLine;
 import cascading.tap.SinkMode;
@@ -66,6 +67,13 @@ public class RedshiftTap extends Hfs {
         this.password = password;
         this.scheme = scheme;
         this.sinkMode = sinkMode;
+    }
+
+    @Override
+    public void sinkConfInit(FlowProcess<JobConf> process, JobConf conf) {
+        conf.set("mapred.output.compression.codec", "org.apache.hadoop.io.compress.GzipCodec");
+        conf.set("mapred.output.compression.type", "BLOCK");
+        super.sinkConfInit(process, conf);
     }
 
     @Override

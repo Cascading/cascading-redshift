@@ -26,6 +26,9 @@ public class SampleFlow {
         properties.setProperty("fs.s3n.awsAccessKeyId", accessKey);
         properties.setProperty("fs.s3n.awsSecretAccessKey", secretKey);
 
+        System.out.println(String.format("fs.s3n.awsAccessKeyId=%s", accessKey));
+        System.out.println(String.format("fs.s3n.awsSecretAccessKey=%s", secretKey));
+
         AppProps.setApplicationJarClass(properties, SampleFlow.class);
 
         HadoopFlowConnector flowConnector = new HadoopFlowConnector(properties);
