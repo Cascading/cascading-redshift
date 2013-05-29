@@ -3,6 +3,8 @@ package org.pingles.cascading.redshift;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
+import java.util.List;
 
 public class CopyFromS3Command implements RedshiftJdbcCommand {
     private final String tableName;
@@ -16,6 +18,7 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
         this.uri = uri;
         this.s3AccessKey = s3AccessKey;
         this.s3SecretKey = s3SecretKey;
+
         this.copyOptions = copyOptions;
     }
 
@@ -31,7 +34,13 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
     private String buildCopyOptions() {
         StringBuffer buffer = new StringBuffer();
 
-        for (String copyOption : copyOptions) {
+        List<String> copyList = Arrays.asList(copyOptions);
+
+        if (!copyList.contains("gzip")) {
+            copyList.add("gzip");
+        }
+
+        for (String copyOption : copyList) {
             if (buffer.length() > 0) {
                 buffer.append(" ");
             }

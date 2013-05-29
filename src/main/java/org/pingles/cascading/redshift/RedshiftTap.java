@@ -1,6 +1,7 @@
 package org.pingles.cascading.redshift;
 
 import cascading.scheme.hadoop.TextDelimited;
+import cascading.scheme.hadoop.TextLine;
 import cascading.tap.SinkMode;
 import cascading.tap.hadoop.Hfs;
 import org.apache.hadoop.mapred.JobConf;
@@ -56,7 +57,7 @@ public class RedshiftTap extends Hfs {
      *                 {@link SinkMode#UPDATE} to not drop table for incremental loading
      */
     public RedshiftTap(String s3Uri, String s3AccessKey, String s3SecretKey, String jdbcUrl, String username, String password, RedshiftScheme scheme, SinkMode sinkMode) {
-        super(new TextDelimited(scheme.getSinkFields()), s3Uri, SinkMode.REPLACE);
+        super(new TextDelimited(scheme.getSinkFields(), TextLine.Compress.ENABLE, "\t"), s3Uri, SinkMode.REPLACE);
         this.s3Uri = s3Uri;
         this.s3AccessKey = s3AccessKey;
         this.s3SecretKey = s3SecretKey;
