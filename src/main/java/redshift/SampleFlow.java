@@ -2,9 +2,17 @@ package redshift;
 
 import cascading.flow.FlowDef;
 import cascading.flow.hadoop.HadoopFlowConnector;
+import cascading.operation.Aggregator;
+import cascading.operation.Function;
+import cascading.operation.aggregator.Count;
+import cascading.operation.regex.RegexGenerator;
+import cascading.pipe.Each;
+import cascading.pipe.Every;
+import cascading.pipe.GroupBy;
 import cascading.pipe.Pipe;
 import cascading.property.AppProps;
 import cascading.scheme.hadoop.TextDelimited;
+import cascading.tap.SinkMode;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
@@ -36,19 +44,22 @@ public class SampleFlow {
         Tap inTap = new Hfs(new TextDelimited(new Fields("line"), false, "\t"), inputPath);
 
         String tableName = "cascading_redshift_sample";
-        String[] columnNames = {"line"};
-        String[] columnDefinitions = {"VARCHAR(500)"};
-        String distributionKey = "line";
-        String[] sortKeys = {"line"};
-        RedshiftScheme scheme = new RedshiftScheme(new Fields("line"), new Fields("line"), tableName, columnNames, columnDefinitions, distributionKey, sortKeys);
-        Tap outTap = new RedshiftTap(outputPath, accessKey, secretKey, redshiftJdbcUrl, redshiftUsername, redshiftPassword, scheme);
+        String[] columnNames = {"word", "freq"};
+        String[] columnDefinitions = {"VARCHAR(500)", "SMALLINT"};
+        String distributionKey = "word";
+        String[] sortKeys = {"freq"};
 
-        //outTap = new Hfs(new TextDelimited(false, "\t"), outputPath);
+        RedshiftScheme scheme = new RedshiftScheme(Fields.ALL, new Fields("word", "count"), tableName, columnNames, columnDefinitions, distributionKey, sortKeys, new String[] {}, "\001");
+        Tap outTap = new RedshiftTap(outputPath, accessKey, secretKey, redshiftJdbcUrl, redshiftUsername, redshiftPassword, scheme, SinkMode.REPLACE);
 
-        Pipe copyPipe = new Pipe("copy");
-        FlowDef flowDef = FlowDef.flowDef().addSource(copyPipe, inTap).addTailSink(copyPipe, outTap);
+        Pipe assembly = new Pipe("wordcount");
+        String wordSplitRegex = "(?<!\\pL)(?=\\pL)[^ ]*(?<=\\pL)(?!\\pL)";
 
-        flowConnector.connect(flowDef).complete();
+        assembly = new Each(assembly, new Fields("line"), new RegexGenerator(new Fields("word"), wordSplitRegex));
+        assembly = new GroupBy(assembly, new Fields("word"));
+        assembly = new Every(assembly, new Fields("word"), new Count(new Fields("count")), new Fields("word", "count"));
+
+        flowConnector.connect("word-count", inTap, outTap, assembly).complete();
 
         return 0;
     }

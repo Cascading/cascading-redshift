@@ -13,14 +13,17 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
     private final String s3AccessKey;
     private final String s3SecretKey;
     private final String[] copyOptions;
+    private final String fieldDelimiter;
 
-    public CopyFromS3Command(String tableName, String uri, String s3AccessKey, String s3SecretKey, String[] copyOptions) {
+    public CopyFromS3Command(String tableName, String uri, String s3AccessKey, String s3SecretKey, String[] copyOptions, String fieldDelimiter) {
         this.tableName = tableName;
+
         this.uri = uri;
         this.s3AccessKey = s3AccessKey;
         this.s3SecretKey = s3SecretKey;
 
         this.copyOptions = copyOptions;
+        this.fieldDelimiter = fieldDelimiter;
     }
 
     public void execute(Connection connection) throws SQLException {
@@ -29,7 +32,7 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
     }
 
     private String commandStatement() {
-        return String.format("COPY %s from '%s' CREDENTIALS 'aws_access_key_id=%s;aws_secret_access_key=%s' delimiter '\\t' %s;", tableName, convertToAmazonUri(uri), s3AccessKey, s3SecretKey, buildCopyOptions());
+        return String.format("COPY %s from '%s' CREDENTIALS 'aws_access_key_id=%s;aws_secret_access_key=%s' delimiter '%s' %s;", tableName, convertToAmazonUri(uri), s3AccessKey, s3SecretKey, fieldDelimiter, buildCopyOptions());
     }
 
     private String buildCopyOptions() {

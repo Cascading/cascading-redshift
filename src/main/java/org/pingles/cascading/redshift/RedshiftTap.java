@@ -58,7 +58,7 @@ public class RedshiftTap extends Hfs {
      *                 {@link SinkMode#UPDATE} to not drop table for incremental loading
      */
     public RedshiftTap(String s3Uri, String s3AccessKey, String s3SecretKey, String jdbcUrl, String username, String password, RedshiftScheme scheme, SinkMode sinkMode) {
-        super(new TextDelimited(scheme.getSinkFields(), TextLine.Compress.ENABLE, "\t"), s3Uri, SinkMode.REPLACE);
+        super(new TextDelimited(scheme.getSinkFields(), TextLine.Compress.ENABLE, scheme.getFieldDelimiter()), s3Uri, SinkMode.REPLACE);
         this.s3Uri = s3Uri;
         this.s3AccessKey = s3AccessKey;
         this.s3SecretKey = s3SecretKey;
