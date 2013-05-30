@@ -4,7 +4,7 @@
     <groupId>org.pingles</groupId>
     <artifactId>cascading.redshift</artifactId>
     <packaging>jar</packaging>
-    <version>0.7</version>
+    <version>0.8</version>
     <name>cascading.redshift</name>
     <url>http://maven.apache.org</url>
     <dependencies>
@@ -31,6 +31,12 @@
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
             <version>8.4-702.jdbc4</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <repositories>
