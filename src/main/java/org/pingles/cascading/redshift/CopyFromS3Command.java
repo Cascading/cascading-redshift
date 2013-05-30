@@ -1,5 +1,7 @@
 package org.pingles.cascading.redshift;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,8 +16,9 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
     private final String s3SecretKey;
     private final String[] copyOptions;
     private final String fieldDelimiter;
+    private final String fieldQuote;
 
-    public CopyFromS3Command(String tableName, String uri, String s3AccessKey, String s3SecretKey, String[] copyOptions, String fieldDelimiter) {
+    public CopyFromS3Command(String tableName, String uri, String s3AccessKey, String s3SecretKey, String[] copyOptions, String fieldDelimiter, String fieldQuote) {
         this.tableName = tableName;
 
         this.uri = uri;
@@ -24,6 +27,7 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
 
         this.copyOptions = copyOptions;
         this.fieldDelimiter = fieldDelimiter;
+        this.fieldQuote = fieldQuote;
     }
 
     public void execute(Connection connection) throws SQLException {
@@ -44,6 +48,10 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
             copyList.add("gzip");
         }
 
+        if (isQuoted()) {
+            copyList.add("REMOVEQUOTES");
+        }
+
         for (String copyOption : copyList) {
             if (buffer.length() > 0) {
                 buffer.append(" ");
@@ -52,6 +60,10 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
         }
 
         return buffer.toString();
+    }
+
+    private boolean isQuoted() {
+        return !StringUtils.isBlank(fieldQuote);
     }
 
     private String convertToAmazonUri(String hfsS3Path) {
