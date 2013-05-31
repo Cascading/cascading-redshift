@@ -52,7 +52,6 @@ public class RedshiftSafeDelimitedParser extends DelimitedParser {
                     }
 
                     String escaped = StringUtils.escapeString(valueString, BACKSLASH, new char[]{'"', '\''});
-                    escaped = escaped.replaceAll("\n", "");
                     buffer.append(quote + escaped + quote);
                 } else {
                     buffer.append(value.toString());
