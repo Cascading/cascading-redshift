@@ -84,10 +84,6 @@ public class RedshiftScheme extends Scheme<JobConf, RecordReader, OutputCollecto
     }
 
     public RedshiftJdbcCommand buildCopyFromS3Command(String uri, String s3AccessKey, String s3SecretKey) {
-        return new CopyFromS3Command(tableName, uri, s3AccessKey, s3SecretKey, getCopyOptions(), getFieldDelimiter(), getFieldQuote());
-    }
-
-    public String getFieldQuote() {
-        return "\"";
+        return new CopyFromS3Command(tableName, uri, s3AccessKey, s3SecretKey, getCopyOptions(), getFieldDelimiter());
     }
 }

@@ -16,9 +16,8 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
     private final String s3SecretKey;
     private final String[] copyOptions;
     private final String fieldDelimiter;
-    private final String fieldQuote;
 
-    public CopyFromS3Command(String tableName, String uri, String s3AccessKey, String s3SecretKey, String[] copyOptions, String fieldDelimiter, String fieldQuote) {
+    public CopyFromS3Command(String tableName, String uri, String s3AccessKey, String s3SecretKey, String[] copyOptions, String fieldDelimiter) {
         this.tableName = tableName;
 
         this.uri = uri;
@@ -27,7 +26,6 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
 
         this.copyOptions = copyOptions;
         this.fieldDelimiter = fieldDelimiter;
-        this.fieldQuote = fieldQuote;
     }
 
     public void execute(Connection connection) throws SQLException {
@@ -48,9 +46,10 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
             copyList.add("gzip");
         }
 
-        if (isQuoted()) {
-            copyList.add("REMOVEQUOTES");
-        }
+        // RedshiftSafeDelimitedParser will quote string fields
+        // and escape special characters upon writing
+        copyList.add("REMOVEQUOTES");
+        copyList.add("ESCAPE");
 
         for (String copyOption : copyList) {
             if (buffer.length() > 0) {
@@ -60,10 +59,6 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
         }
 
         return buffer.toString();
-    }
-
-    private boolean isQuoted() {
-        return !StringUtils.isBlank(fieldQuote);
     }
 
     private String convertToAmazonUri(String hfsS3Path) {

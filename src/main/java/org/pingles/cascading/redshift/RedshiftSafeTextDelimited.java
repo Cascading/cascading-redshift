@@ -7,47 +7,84 @@ import cascading.tuple.Fields;
 import cascading.tuple.Tuple;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.OutputCollector;
-
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class RedshiftSafeTextDelimited extends TextDelimited {
-    public RedshiftSafeTextDelimited(Fields sinkFields, Compress compress, String fieldDelimiter, String fieldQuote) {
-        super(sinkFields, compress, fieldDelimiter, fieldQuote);
+    private final RedshiftSafeDelimitedParser safeDelimitedParser;
+    private final boolean skipHeader;
+    private final boolean safe;
+    private final boolean strict;
+    private final Class[] types;
+    private final boolean writeHeader;
+
+    public RedshiftSafeTextDelimited(Fields sinkFields, Compress compress, String fieldDelimiter) {
+        super(sinkFields, compress, fieldDelimiter);
+        types = null;
+        strict = false;
+        safe = false;
+        skipHeader = false;
+        writeHeader = false;
+
+        safeDelimitedParser = new RedshiftSafeDelimitedParser(fieldDelimiter, RedshiftSafeDelimitedParser.REDSHIFT_FIELD_QUOTE, types, strict, safe, skipHeader, getSourceFields(), getSinkFields());
+    }
+
+    @Override
+    public void sinkPrepare(FlowProcess<JobConf> flowProcess, SinkCall<Object[], OutputCollector> sinkCall) throws IOException {
+        sinkCall.setContext(new Object[]{new DecoratorTuple(), new StringBuilder(4 * 1024)});
+
+        if( writeHeader )
+        {
+            Fields fields = sinkCall.getOutgoingEntry().getFields();
+            StringBuilder line = (StringBuilder) safeDelimitedParser.joinLine( fields, (StringBuilder) sinkCall.getContext()[ 1 ] );
+
+            DecoratorTuple decoratorTuple = (DecoratorTuple) sinkCall.getContext()[ 0 ];
+
+            decoratorTuple.set( Tuple.NULL, line.toString() );
+
+            line.setLength( 0 );
+
+            sinkCall.getOutput().collect( null, decoratorTuple );
+        }
     }
 
     @Override
     public void sink(FlowProcess<JobConf> flowProcess, SinkCall<Object[], OutputCollector> sinkCall) throws IOException {
         Tuple tuple = sinkCall.getOutgoingEntry().getTuple();
+        StringBuilder line = (StringBuilder) safeDelimitedParser.joinLine( tuple, (StringBuilder) sinkCall.getContext()[ 1 ] );
 
-        ensureTupleValuesAreWithinValidCodepoints(tuple);
+        DecoratorTuple decoratorTuple = (DecoratorTuple) sinkCall.getContext()[ 0 ];
 
-        super.sink(flowProcess, sinkCall);
+        decoratorTuple.set( tuple, line.toString() );
+
+        line.setLength( 0 );
+
+        sinkCall.getOutput().collect( null, decoratorTuple );
     }
 
-    private void ensureTupleValuesAreWithinValidCodepoints(Tuple tuple) {
-        for (Object value : tuple) {
-            if (value != null) {
-                String valueString = value.toString();
+    /**
+     *  Taken from Cascading's TextDelimited
+     */
+    private static class DecoratorTuple extends Tuple
+    {
+        String string;
 
-                for (int i = 0; i < valueString.length(); i++) {
-                    if (isExcludedCodepoint(valueString.codePointAt(i))) {
-                        throw new InvalidCodepointForRedshiftException(valueString);
-                    }
-                }
-            }
+        private DecoratorTuple()
+        {
+            super( (List<Object>) null );
         }
-    }
 
-    private boolean isExcludedCodepoint(int codepoint) {
-        if (codepoint >= 0xD800 && codepoint <= 0xDFFF) {
-            return true;
+        public void set( Tuple tuple, String string )
+        {
+            this.elements = (ArrayList<Object>) Tuple.elements( tuple );
+            this.string = string;
         }
-        if (codepoint >= 0xFDD0 && codepoint <= 0xFDEF) {
-            return true;
+
+        @Override
+        public String toString()
+        {
+            return string;
         }
-        if (codepoint >= 0xFFFE && codepoint <=  0xFFFF) {
-            return true;
-        }
-        return false;
     }
 }
