@@ -8,6 +8,7 @@ import org.apache.hadoop.util.StringUtils;
 import java.io.IOException;
 
 public class RedshiftSafeDelimitedParser extends DelimitedParser {
+    private static final char BACKSLASH = 0x5c;
     public static String REDSHIFT_FIELD_QUOTE = "\"";
 
     private final String delimiter;
@@ -50,7 +51,8 @@ public class RedshiftSafeDelimitedParser extends DelimitedParser {
                         throw new InvalidCodepointForRedshiftException(valueString);
                     }
 
-                    String escaped = StringUtils.escapeString(valueString, '\\', new char[] {'"', '\''});
+                    String escaped = StringUtils.escapeString(valueString, BACKSLASH, new char[]{'"', '\''});
+                    escaped = escaped.replaceAll("\n", "");
                     buffer.append(quote + escaped + quote);
                 } else {
                     buffer.append(value.toString());

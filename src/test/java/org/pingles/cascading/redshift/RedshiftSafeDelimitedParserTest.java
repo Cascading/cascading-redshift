@@ -40,6 +40,21 @@ public class RedshiftSafeDelimitedParserTest {
         assertEquals("\"Some\",\"\\'name\"", buf.toString());
     }
 
+
+    // TODO
+    // This is a bit disgusting but Redshift's newline parsing doesn't seem to be working too
+    // well. We'll just remove them for now and then revisit once we know the rest is working
+    // for all data.
+    @Test
+    public void shouldRemoveNewlines() {
+        RedshiftSafeDelimitedParser parser = new RedshiftSafeDelimitedParser(",", "\"");
+        StringBuffer buf = new StringBuffer();
+
+        parser.joinLine(new Tuple("Some", "hello\npaul"), buf);
+
+        assertEquals("\"Some\",\"hellopaul\"", buf.toString());
+    }
+
     @Test
     public void shouldThrowErrorWithInvalidCodepointCharacter() throws UnsupportedEncodingException {
         RedshiftSafeDelimitedParser parser = new RedshiftSafeDelimitedParser(",", "\"");
