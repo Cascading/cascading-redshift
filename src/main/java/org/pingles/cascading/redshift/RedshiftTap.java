@@ -1,7 +1,6 @@
 package org.pingles.cascading.redshift;
 
 import cascading.flow.FlowProcess;
-import cascading.scheme.hadoop.TextDelimited;
 import cascading.scheme.hadoop.TextLine;
 import cascading.tap.SinkMode;
 import cascading.tap.hadoop.Hfs;
@@ -83,7 +82,8 @@ public class RedshiftTap extends Hfs {
         try {
             client.connect();
             if (this.sinkMode == SinkMode.REPLACE) {
-                client.execute(scheme.buildDropTableCommand());
+                client.execute(scheme.buildTruncateTableCommand());
+            } else {
                 client.execute(scheme.buildCreateTableCommand());  // TODO how to create table check if not exist?
             }
             client.execute(scheme.buildCopyFromS3Command(s3Uri, s3AccessKey, s3SecretKey));

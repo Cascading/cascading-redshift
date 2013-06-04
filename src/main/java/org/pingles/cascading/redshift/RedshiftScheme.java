@@ -83,6 +83,10 @@ public class RedshiftScheme extends Scheme<JobConf, RecordReader, OutputCollecto
         return new DropTableCommand(tableName);
     }
 
+    public RedshiftJdbcCommand buildTruncateTableCommand() {
+        return new TruncateTableCommand(tableName);
+    }
+
     public RedshiftJdbcCommand buildCopyFromS3Command(String uri, String s3AccessKey, String s3SecretKey) {
         return new CopyFromS3Command(tableName, uri, s3AccessKey, s3SecretKey, getCopyOptions(), getFieldDelimiter());
     }
