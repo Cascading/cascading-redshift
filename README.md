@@ -2,6 +2,8 @@
 
 Provides an optimised [Cascading](http://cascading.org) sink for Amazon Redshift; String data will be checked for invalid codepoints, output files will be Gzip compressed automatically etc.
 
+Data is sunk using an s3 path before a JDBC connection issues the DROP/CREATE/COPY statements.
+
 ## Installing
 
 [cascading.redshift](http://conjars.org/org.pingles/cascading.redshift) is hosted on [conjars.org](http://conjars.org). You can add conjars.org as a
@@ -29,6 +31,8 @@ String[] columnNames = {"word", "freq"};
 String[] columnDefinitions = {"VARCHAR(500)", "SMALLINT"};
 String distributionKey = "word";
 String[] sortKeys = {"freq"};
+
+String outputPath = "s3n://mybucket/data"
 
 RedshiftScheme scheme = new RedshiftScheme(Fields.ALL, new Fields("word", "count"), tableName, columnNames, columnDefinitions, distributionKey, sortKeys, new String[] {}, "\001");
 Tap outTap = new RedshiftTap(outputPath, accessKey, secretKey, redshiftJdbcUrl, redshiftUsername, redshiftPassword, scheme, SinkMode.REPLACE);
