@@ -1,13 +1,23 @@
 # cascading.redshift
 
-Optimistic punt: create redshift tables and sink data via S3
+Provides an optimised [Cascading](http://cascading.org) sink for Amazon Redshift; String data will be checked for invalid codepoints, output files will be Gzip compressed automatically etc.
 
-## Usage
+## Installing
 
-cascading.redshift is hosted on [conjars.org](http://conjars.org). You can add conjars.org as a
-maven repository and install the early WIP 0.1-SNAPSHOT release.
+[cascading.redshift](http://conjars.org/org.pingles/cascading.redshift) is hosted on [conjars.org](http://conjars.org). You can add conjars.org as a
+maven repository and install the latest release:
 
-## Sample
+```xml
+<dependency>
+  <groupId>org.pingles</groupId>
+  <artifactId>cascading.redshift</artifactId>
+  <version>0.12</version>
+</dependency>
+```
+
+## Using
+
+The wordcount example from Cascading with a sink to send data to Redshift. 
 
 ```java
 HadoopFlowConnector flowConnector = new HadoopFlowConnector(properties);
