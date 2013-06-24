@@ -81,11 +81,12 @@ public class RedshiftTap extends Hfs {
         RedshiftJdbcClient client = new RedshiftJdbcClient(jdbcUrl, username, password);
         try {
             client.connect();
-            if (this.sinkMode == SinkMode.REPLACE) {
-                client.execute(scheme.buildTruncateTableCommand());
-            } else {
-                client.execute(scheme.buildCreateTableCommand());  // TODO how to create table check if not exist?
+
+            if (sinkMode == SinkMode.REPLACE) {
+                client.execute(scheme.buildDropTableCommand());
+                client.execute(scheme.buildCreateTableCommand());
             }
+
             client.execute(scheme.buildCopyFromS3Command(s3Uri, s3AccessKey, s3SecretKey));
         } catch (ClassNotFoundException e) {
             LOGGER.error("Couldn't commit to Redshift", e);

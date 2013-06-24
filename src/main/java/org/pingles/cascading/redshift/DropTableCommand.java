@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class TruncateTableCommand implements RedshiftJdbcCommand {
+public class DropTableCommand implements RedshiftJdbcCommand {
     private final String tableName;
 
-    public TruncateTableCommand(String tableName) {
+    public DropTableCommand(String tableName) {
         this.tableName = tableName;
     }
 
@@ -21,7 +21,7 @@ public class TruncateTableCommand implements RedshiftJdbcCommand {
     }
 
     private String commandStatement() {
-        return String.format("TRUNCATE TABLE %s", tableName);
+        return String.format("DROP TABLE %s", tableName);
     }
 
     @Override
