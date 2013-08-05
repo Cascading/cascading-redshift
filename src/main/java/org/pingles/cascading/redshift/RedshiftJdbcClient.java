@@ -32,4 +32,14 @@ public class RedshiftJdbcClient {
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(jdbcUrl, username, password);
     }
+
+    public void disconnect() {
+        try {
+            if (this.connection != null && !this.connection.isClosed()) {
+                this.connection.close();
+            }
+        } catch (SQLException e) {
+            LOGGER.warn("Error disconnecting", e);
+        }
+    }
 }
