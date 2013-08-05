@@ -1,7 +1,5 @@
 package org.pingles.cascading.redshift;
 
-import org.apache.commons.lang.StringUtils;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
