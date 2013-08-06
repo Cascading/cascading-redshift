@@ -6,19 +6,19 @@ import java.util.concurrent.*;
 
 public class ExecutorTimeoutCommitter implements ResourceCommitter {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExecutorTimeoutCommitter.class);
-    private final Integer minutesToWait;
+    private final Timeout timeout;
     private Callable<Boolean> commitTask;
 
-    public ExecutorTimeoutCommitter(Callable<Boolean> commitTask, Integer minutesToWait) {
+    public ExecutorTimeoutCommitter(Callable<Boolean> commitTask, Timeout timeout) {
         this.commitTask = commitTask;
-        this.minutesToWait = minutesToWait;
+        this.timeout = timeout;
     }
 
     public boolean commit() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Future<Boolean> future = executorService.submit(commitTask);
         try {
-            future.get(minutesToWait, TimeUnit.MINUTES);
+            return future.get(timeout.getDelay(), timeout.getUnit());
         } catch (InterruptedException e) {
             LOGGER.warn("Commit interrupted", e);
             throw new RuntimeException(e);
@@ -26,7 +26,7 @@ public class ExecutorTimeoutCommitter implements ResourceCommitter {
             LOGGER.error("Execution exception", e);
             throw new RuntimeException(e);
         } catch (TimeoutException e) {
-            LOGGER.warn("Timed out executing copy", e);
+            LOGGER.warn("Timed out executing copy. Assuming success.", e);
         }
 
         return true;

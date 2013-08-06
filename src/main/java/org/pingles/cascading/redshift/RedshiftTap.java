@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class RedshiftTap extends Hfs {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedshiftJdbcClient.class);
@@ -104,7 +105,7 @@ public class RedshiftTap extends Hfs {
         RedshiftConnectionDetails connDetails = new RedshiftConnectionDetails(jdbcUrl, username, password);
         S3Details s3Details = new S3Details(s3Uri, s3AccessKey, s3SecretKey);
         CommitTask task = new CommitTask(connDetails, s3Details, getSinkMode(), scheme);
-        ResourceCommitter committer = new ExecutorTimeoutCommitter(task, minutesToWait);
+        ResourceCommitter committer = new ExecutorTimeoutCommitter(task, new Timeout(minutesToWait, TimeUnit.MINUTES));
         return committer.commit();
     }
 
