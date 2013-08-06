@@ -15,10 +15,10 @@ public class RedshiftJdbcClient {
     private final String password;
     private Connection connection;
 
-    public RedshiftJdbcClient(String jdbcUrl, String username, String password) {
-        this.jdbcUrl = jdbcUrl;
-        this.username = username;
-        this.password = password;
+    public RedshiftJdbcClient(RedshiftConnectionDetails connectionDetails) {
+        this.jdbcUrl = connectionDetails.getJdbcUrl();
+        this.username = connectionDetails.getUsername();
+        this.password = connectionDetails.getPassword();
     }
 
     public void execute(RedshiftJdbcCommand command) throws SQLException {

@@ -9,13 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.UUID;
-import java.util.concurrent.*;
 
 public class RedshiftTap extends Hfs {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedshiftJdbcClient.class);
-    private static final Integer DEFAULT_TIMEOUT_MINUTES = 10;
 
     private final String username;
     private final String password;
@@ -25,8 +22,9 @@ public class RedshiftTap extends Hfs {
     private final String s3SecretKey;
     private final String jdbcUrl;
     private final String id = UUID.randomUUID().toString();
-    private final SinkMode sinkMode;
-    private final Integer minutesToWait;
+
+    private static final Integer DEFAULT_TIMEOUT_MINUTES = 10;
+    private Integer minutesToWait = DEFAULT_TIMEOUT_MINUTES;
 
     /**
      * Redshift sink-only tap to stage data to S3 and then issue a JDBC COPY command to specified Redshift table.
@@ -89,7 +87,6 @@ public class RedshiftTap extends Hfs {
         this.username = username;
         this.password = password;
         this.scheme = scheme;
-        this.sinkMode = sinkMode;
         this.minutesToWait = minutesToWait;
     }
 
@@ -104,23 +101,11 @@ public class RedshiftTap extends Hfs {
 
     @Override
     public boolean commitResource(JobConf conf) throws IOException {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CommitTask commitTask = new CommitTask();
-
-        Future<Boolean> future = executorService.submit(commitTask);
-        try {
-            future.get(minutesToWait, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            LOGGER.warn("Commit interrupted", e);
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            LOGGER.error("Execution exception", e);
-            throw new RuntimeException(e);
-        } catch (TimeoutException e) {
-            LOGGER.warn("Timed out executing copy", e);
-        }
-
-        return true;
+        RedshiftConnectionDetails connDetails = new RedshiftConnectionDetails(jdbcUrl, username, password);
+        S3Details s3Details = new S3Details(s3Uri, s3AccessKey, s3SecretKey);
+        CommitTask task = new CommitTask(connDetails, s3Details, getSinkMode(), scheme);
+        ResourceCommitter committer = new ExecutorTimeoutCommitter(task, minutesToWait);
+        return committer.commit();
     }
 
     @Override
@@ -130,38 +115,5 @@ public class RedshiftTap extends Hfs {
 
     public String getJDBCPath() {
         return "jdbc:/" + jdbcUrl.replaceAll( ":", "_" );
-    }
-
-    class CommitTask implements Callable<Boolean> {
-
-        private final RedshiftJdbcClient redshiftClient;
-
-        CommitTask() {
-            // trigger copy from S3 to Redshift
-            redshiftClient = new RedshiftJdbcClient(jdbcUrl, username, password);
-        }
-
-        public Boolean call() throws Exception {
-            try {
-                redshiftClient.connect();
-
-                if (sinkMode == SinkMode.REPLACE) {
-                    redshiftClient.execute(scheme.buildDropTableCommand());
-                    redshiftClient.execute(scheme.buildCreateTableCommand());
-                }
-
-                redshiftClient.execute(scheme.buildCopyFromS3Command(s3Uri, s3AccessKey, s3SecretKey));
-                redshiftClient.disconnect();
-                LOGGER.info("Completed copy from S3");
-            } catch (ClassNotFoundException e) {
-                LOGGER.error("Couldn't commit to Redshift", e);
-                return false;
-            } catch (SQLException e) {
-                LOGGER.error("Couldn't commit to Redshift", e);
-                return false;
-            }
-
-            return true;
-        }
     }
 }
