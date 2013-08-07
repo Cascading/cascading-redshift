@@ -4,7 +4,7 @@
     <groupId>org.pingles</groupId>
     <artifactId>cascading.redshift</artifactId>
     <packaging>jar</packaging>
-    <version>0.14</version>
+    <version>0.15-SNAPSHOT</version>
     <name>cascading.redshift</name>
     <url>http://maven.apache.org</url>
     <dependencies>
