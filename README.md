@@ -13,7 +13,7 @@ maven repository and install the latest release:
 <dependency>
   <groupId>org.pingles</groupId>
   <artifactId>cascading.redshift</artifactId>
-  <version>0.12</version>
+  <version>0.14</version>
 </dependency>
 ```
 
