@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 public class RedshiftSafeTextDelimited extends TextDelimited {
+
+    private static final long serialVersionUID = -7323451899794326049L;
+    
     private final RedshiftSafeDelimitedParser safeDelimitedParser;
     private final boolean skipHeader;
     private final boolean safe;
@@ -26,7 +29,7 @@ public class RedshiftSafeTextDelimited extends TextDelimited {
         safe = false;
         skipHeader = false;
 
-        safeDelimitedParser = new RedshiftSafeDelimitedParser(fieldDelimiter, RedshiftSafeDelimitedParser.REDSHIFT_FIELD_QUOTE, types, strict, safe, skipHeader, getSourceFields(), getSinkFields());
+        safeDelimitedParser = new RedshiftSafeDelimitedParser(fieldDelimiter, RedshiftSafeDelimitedParser.REDSHIFT_FIELD_QUOTE, types, strict, safe, getSourceFields(), getSinkFields());
     }
 
     @Override

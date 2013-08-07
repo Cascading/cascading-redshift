@@ -13,10 +13,13 @@ import cascading.tap.SinkMode;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
+
+import org.pingles.cascading.redshift.AWSCredentials;
 import org.pingles.cascading.redshift.RedshiftScheme;
 import org.pingles.cascading.redshift.RedshiftTap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -39,10 +42,12 @@ public class SampleFlow {
         String redshiftPassword = props.getProperty("jdbc.password");
         String accessKey = props.getProperty("aws.access.key");
         String secretKey = props.getProperty("aws.secret.key");
+        
+        AWSCredentials credentials = new AWSCredentials( accessKey, secretKey );
 
         Properties cascadingProperties = new Properties();
         for (Object k : props.keySet()) {
-            LOGGER.info("{}= {}", k, props.getProperty((String) k));
+            LOGGER.info("{}={}", k, props.getProperty((String) k));
         }
 
         cascadingProperties.setProperty("fs.s3n.awsAccessKeyId", accessKey);
@@ -59,8 +64,9 @@ public class SampleFlow {
         String distributionKey = "word";
         String[] sortKeys = {"freq"};
 
-        RedshiftScheme scheme = new RedshiftScheme(Fields.ALL, new Fields("word", "count"), tableName, columnNames, columnDefinitions, distributionKey, sortKeys, new String[] {}, "\001");
-        Tap outTap = new RedshiftTap(outputPath, accessKey, secretKey, redshiftJdbcUrl, redshiftUsername, redshiftPassword, scheme, SinkMode.REPLACE);
+        RedshiftScheme scheme = new RedshiftScheme(Fields.ALL, new Fields("word", "count"), tableName, columnNames, 
+            columnDefinitions, distributionKey, sortKeys, new String[] {}, "\001");
+        Tap outTap = new RedshiftTap(outputPath, credentials, redshiftJdbcUrl, redshiftUsername, redshiftPassword, scheme, SinkMode.REPLACE);
 
         Pipe assembly = new Pipe("wordcount");
         String wordSplitRegex = "(?<!\\pL)(?=\\pL)[^ ]*(?<=\\pL)(?!\\pL)";

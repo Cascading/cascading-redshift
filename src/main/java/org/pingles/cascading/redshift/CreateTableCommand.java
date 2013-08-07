@@ -1,8 +1,5 @@
 package org.pingles.cascading.redshift;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -13,7 +10,6 @@ public class CreateTableCommand implements RedshiftJdbcCommand {
     private final String[] columnDefinitions;
     private final String distributionKey;
     private final String[] sortKeys;
-    private static final Logger LOGGER = LoggerFactory.getLogger(RedshiftJdbcClient.class);
 
     public CreateTableCommand(String tableName, String[] columnNames, String[] columnDefinitions, String distributionKey, String[] sortKeys) {
         if (columnNames.length != columnDefinitions.length) {

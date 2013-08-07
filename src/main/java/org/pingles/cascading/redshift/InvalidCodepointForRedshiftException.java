@@ -1,6 +1,9 @@
 package org.pingles.cascading.redshift;
 
 public class InvalidCodepointForRedshiftException extends RuntimeException {
+
+    private static final long serialVersionUID = 541540683676561848L;
+    
     private final String originalString;
 
     public InvalidCodepointForRedshiftException(String originalString) {
