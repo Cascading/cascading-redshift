@@ -1,9 +1,6 @@
 package redshift;
 
-import cascading.flow.FlowDef;
 import cascading.flow.hadoop.HadoopFlowConnector;
-import cascading.operation.Aggregator;
-import cascading.operation.Function;
 import cascading.operation.aggregator.Count;
 import cascading.operation.regex.RegexGenerator;
 import cascading.pipe.Each;
@@ -18,28 +15,38 @@ import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
 import org.pingles.cascading.redshift.RedshiftScheme;
 import org.pingles.cascading.redshift.RedshiftTap;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class SampleFlow {
-    public static int main(String[] args) {
-        String inputPath = args[0];
-        String outputPath = args[1];
-        String redshiftJdbcUrl = args[2];
-        String redshiftUsername = args[3];
-        String redshiftPassword = args[4];
+    public static void main(String[] args) throws IOException {
+        String propertiesPath = args[0];
+        FileInputStream propsStream = new FileInputStream(new File(propertiesPath));
+        Properties props = new Properties();
+        props.load(propsStream);
+        propsStream.close();
 
-        Properties properties = new Properties();
-        String accessKey = System.getenv("AWS_ACCESS_KEY_ID");
-        String secretKey = System.getenv("AWS_SECRET_KEY");
-        properties.setProperty("fs.s3n.awsAccessKeyId", accessKey);
-        properties.setProperty("fs.s3n.awsSecretAccessKey", secretKey);
+        String inputPath = props.getProperty("input.path");
+        String outputPath = props.getProperty("output.path");
+        String redshiftJdbcUrl = props.getProperty("jdbc.url");
+        String redshiftUsername = props.getProperty("jdbc.username");
+        String redshiftPassword = props.getProperty("jdbc.password");
+        String accessKey = props.getProperty("aws.access.key");
+        String secretKey = props.getProperty("aws.secret.key");
 
-        System.out.println(String.format("fs.s3n.awsAccessKeyId=%s", accessKey));
-        System.out.println(String.format("fs.s3n.awsSecretAccessKey=%s", secretKey));
+        Properties cascadingProperties = new Properties();
+        for (Object k : props.keySet()) {
+            System.out.println(String.format("%s: %s", k, props.getProperty((String) k)));
+        }
 
-        AppProps.setApplicationJarClass(properties, SampleFlow.class);
+        cascadingProperties.setProperty("fs.s3n.awsAccessKeyId", accessKey);
+        cascadingProperties.setProperty("fs.s3n.awsSecretAccessKey", secretKey);
+        AppProps.setApplicationJarClass(cascadingProperties, SampleFlow.class);
 
-        HadoopFlowConnector flowConnector = new HadoopFlowConnector(properties);
+        HadoopFlowConnector flowConnector = new HadoopFlowConnector(cascadingProperties);
 
         Tap inTap = new Hfs(new TextDelimited(new Fields("line"), false, "\t"), inputPath);
 
@@ -60,7 +67,5 @@ public class SampleFlow {
         assembly = new Every(assembly, new Fields("word"), new Count(new Fields("count")), new Fields("word", "count"));
 
         flowConnector.connect("word-count", inTap, outTap, assembly).complete();
-
-        return 0;
     }
 }
