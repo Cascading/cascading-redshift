@@ -7,8 +7,8 @@ import cascading.tuple.Fields;
 import cascading.tuple.Tuple;
 import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.OutputCollector;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RedshiftSafeTextDelimited extends TextDelimited {
@@ -77,7 +77,7 @@ public class RedshiftSafeTextDelimited extends TextDelimited {
 
         public void set( Tuple tuple, String string )
         {
-            this.elements = (ArrayList<Object>) Tuple.elements( tuple );
+            this.setAll(tuple);
             this.string = string;
         }
 
