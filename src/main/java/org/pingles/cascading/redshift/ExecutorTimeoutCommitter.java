@@ -17,8 +17,10 @@ public class ExecutorTimeoutCommitter implements ResourceCommitter {
     public boolean commit() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Future<Boolean> future = executorService.submit(commitTask);
+        Boolean result = true;
         try {
-            return future.get(timeout.getDelay(), timeout.getUnit());
+            LOGGER.info("Submitting commit task with timeout: {}", timeout.toString());
+            result = future.get(timeout.getDelay(), timeout.getUnit());
         } catch (InterruptedException e) {
             LOGGER.warn("Commit interrupted", e);
             throw new RuntimeException(e);
@@ -29,6 +31,9 @@ public class ExecutorTimeoutCommitter implements ResourceCommitter {
             LOGGER.warn("Timed out executing copy. Assuming success.", e);
         }
 
-        return true;
+        executorService.shutdown();
+        LOGGER.info("Shutdown requested.");
+
+        return result;
     }
 }

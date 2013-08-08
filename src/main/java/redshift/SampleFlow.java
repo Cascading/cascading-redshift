@@ -15,13 +15,16 @@ import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
 import org.pingles.cascading.redshift.RedshiftScheme;
 import org.pingles.cascading.redshift.RedshiftTap;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
 public class SampleFlow {
+    private static final Logger LOGGER = LoggerFactory.getLogger(SampleFlow.class);
+
     public static void main(String[] args) throws IOException {
         String propertiesPath = args[0];
         FileInputStream propsStream = new FileInputStream(new File(propertiesPath));
@@ -39,7 +42,7 @@ public class SampleFlow {
 
         Properties cascadingProperties = new Properties();
         for (Object k : props.keySet()) {
-            System.out.println(String.format("%s: %s", k, props.getProperty((String) k)));
+            LOGGER.info("{}= {}", k, props.getProperty((String) k));
         }
 
         cascadingProperties.setProperty("fs.s3n.awsAccessKeyId", accessKey);
@@ -67,5 +70,7 @@ public class SampleFlow {
         assembly = new Every(assembly, new Fields("word"), new Count(new Fields("count")), new Fields("word", "count"));
 
         flowConnector.connect("word-count", inTap, outTap, assembly).complete();
+
+        LOGGER.info("Successfully completed sample");
     }
 }

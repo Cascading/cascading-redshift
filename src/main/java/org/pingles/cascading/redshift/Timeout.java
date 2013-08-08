@@ -18,4 +18,12 @@ class Timeout {
     TimeUnit getUnit() {
         return timeUnit;
     }
+
+    @Override
+    public String toString() {
+        return "Timeout{" +
+                "delay=" + delay +
+                ", timeUnit=" + timeUnit +
+                '}';
+    }
 }

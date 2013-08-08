@@ -24,6 +24,8 @@ public class CommitTask implements Callable<Boolean> {
 
     public Boolean call() throws Exception {
         try {
+            LOGGER.info("Connecting to Redshift to commit data");
+
             redshiftClient.connect();
 
             if (sinkMode == SinkMode.REPLACE) {
