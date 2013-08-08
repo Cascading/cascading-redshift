@@ -1,6 +1,5 @@
 package org.pingles.cascading.redshift;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.sql.Connection;
