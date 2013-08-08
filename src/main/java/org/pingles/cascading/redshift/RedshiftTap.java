@@ -13,8 +13,6 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class RedshiftTap extends Hfs {
-    private static final Logger LOGGER = LoggerFactory.getLogger(RedshiftJdbcClient.class);
-
     private final String username;
     private final String password;
     private final RedshiftScheme scheme;

@@ -3,7 +3,6 @@ package org.pingles.cascading.redshift;
 import org.junit.Test;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertTrue;
 
 public class ExecutorTimeoutCommitterTest {
