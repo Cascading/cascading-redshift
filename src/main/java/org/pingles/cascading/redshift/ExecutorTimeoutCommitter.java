@@ -23,7 +23,6 @@ public class ExecutorTimeoutCommitter implements ResourceCommitter {
             result = future.get(timeout.getDelay(), timeout.getUnit());
         } catch (InterruptedException e) {
             LOGGER.warn("Commit interrupted", e);
-            throw new RuntimeException(e);
         } catch (ExecutionException e) {
             LOGGER.error("Execution exception", e);
             throw new RuntimeException(e);
@@ -31,8 +30,8 @@ public class ExecutorTimeoutCommitter implements ResourceCommitter {
             LOGGER.warn("Timed out executing copy. Assuming success.", e);
         }
 
-        executorService.shutdown();
-        LOGGER.info("Shutdown requested.");
+        LOGGER.info("Shutting down now.");
+        executorService.shutdownNow();
 
         return result;
     }
