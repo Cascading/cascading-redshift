@@ -9,3 +9,5 @@ target/
 .DS_Store
 cascading.redshift.i*
 .intellij
+
+*.properties
