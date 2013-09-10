@@ -10,6 +10,11 @@ public class S3Details {
         this.accessKey = accessKey;
         this.secretKey = secretKey;
     }
+    
+    public S3Details(String s3Uri, AWSCredentials awsCredentials)
+      {
+      this(s3Uri, awsCredentials.getAccessKey(), awsCredentials.getSecretKey());
+      }
 
     public String getS3Uri() {
         return s3Uri;

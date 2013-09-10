@@ -8,21 +8,24 @@ import org.apache.hadoop.util.StringUtils;
 import java.io.IOException;
 
 public class RedshiftSafeDelimitedParser extends DelimitedParser {
+
+    private static final long serialVersionUID = -51271090042265176L;
+    
     private static final char BACKSLASH = 0x5c;
     public static String REDSHIFT_FIELD_QUOTE = "\"";
 
     private final String delimiter;
     private final String quote;
 
-    public RedshiftSafeDelimitedParser(String delimiter, String quote, Class[] types, boolean strict, boolean safe, boolean skipHeader, Fields sourceFields, Fields sinkFields) {
-        super(delimiter, quote, types, strict, safe, skipHeader, sourceFields, sinkFields);
+    public RedshiftSafeDelimitedParser(String delimiter, String quote, Class[] types, boolean strict, boolean safe, Fields sourceFields, Fields sinkFields) {
+        super(delimiter, quote, types, strict, safe, sourceFields, sinkFields);
         this.delimiter = delimiter;
         this.quote = quote;
     }
 
     // i know this is horrible but we'll use this just for writing some tests
     public RedshiftSafeDelimitedParser(String delimiter, String quote) {
-        this(delimiter, quote, null, true, true, true, Fields.ALL, Fields.ALL);
+        this(delimiter, quote, null, true, true, Fields.ALL, Fields.ALL);
     }
 
     @Override
@@ -34,7 +37,7 @@ public class RedshiftSafeDelimitedParser extends DelimitedParser {
         }
     }
 
-    private Appendable joinWithQuote(Iterable tuple, Appendable buffer) throws IOException {
+    protected Appendable joinWithQuote(Iterable tuple, Appendable buffer) throws IOException {
         int count = 0;
 
         for( Object value : tuple )
