@@ -37,7 +37,7 @@ apply from: "etc/properties.gradle"
 def versionProperties = new Properties()
 file( 'version.properties' ).withInputStream { versionProperties.load( it ) }
 
-group = 'org.pingles'
+group = 'cascading'
 version = versionProperties[ 'cascading.redshift.version' ]
 
 ext.timestamp = new SimpleDateFormat( "yyyyMMdd" ).format( new Date() )
@@ -151,7 +151,7 @@ uploadArchives {
       inceptionYear '2013'
       url 'http://cascading.org/'
       scm {
-        url 'https://github.com/pingles/cascading.redshift.git'
+        url 'https://github.com/Cascading/cascading.redshift.git'
       }
       licenses {
         license {
