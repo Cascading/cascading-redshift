@@ -1,10 +1,11 @@
 package org.pingles.cascading.redshift;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RedshiftJdbcClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(RedshiftJdbcClient.class);
@@ -26,7 +27,7 @@ public class RedshiftJdbcClient {
     }
 
     public void connect() throws ClassNotFoundException, SQLException {
-        LOGGER.info("connecting to {} authenticating with {} {}", new Object[] {jdbcUrl, username, password});
+        LOGGER.info("connecting to {} as user {}", new Object[] {jdbcUrl, username});
 
         Class.forName("org.postgresql.Driver");
         connection = DriverManager.getConnection(jdbcUrl, username, password);

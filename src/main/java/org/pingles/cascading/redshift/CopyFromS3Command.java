@@ -58,6 +58,6 @@ public class CopyFromS3Command implements RedshiftJdbcCommand {
 
     @Override
     public String toString() {
-        return commandStatement();
+        return commandStatement().replaceAll( "aws_secret_access_key=[^\\s]*", "aws_secret_access_key=*******" );;
     }
 }

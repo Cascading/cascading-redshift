@@ -19,20 +19,20 @@
  */
 package org.pingles.cascading.redshift.provider;
 
-import static org.pingles.cascading.redshift.provider.Utils.*;
-
 import java.util.Properties;
 
+import cascading.scheme.Scheme;
+import cascading.tap.SinkMode;
+import cascading.tap.Tap;
+import cascading.tuple.Fields;
 import org.pingles.cascading.redshift.AWSCredentials;
 import org.pingles.cascading.redshift.RedshiftScheme;
 import org.pingles.cascading.redshift.RedshiftTap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import cascading.scheme.Scheme;
-import cascading.tap.SinkMode;
-import cascading.tap.Tap;
-import cascading.tuple.Fields;
+import static org.pingles.cascading.redshift.provider.Utils.isNullOrEmpty;
+import static org.pingles.cascading.redshift.provider.Utils.throwIfNullOrEmpty;
 
 /**
  * The {@link RedshiftFactory} is a factory class to create {@link RedshiftTap}s
@@ -76,7 +76,12 @@ public class RedshiftFactory
   @SuppressWarnings("rawtypes")
   public Tap createTap(String protocol, Scheme scheme, String identifier, SinkMode mode, Properties properties)
     {
-    LOG.info( "creating redshift protocol with properties {} in mode {}", properties, mode );
+
+    Properties loggableProperties = new Properties( properties );
+    if ( loggableProperties.containsKey( PROTOCOL_JDBC_PASSWORD ))
+      loggableProperties.put( PROTOCOL_JDBC_PASSWORD, "***********" );
+
+    LOG.info( "creating redshift protocol with properties {} in mode {}", loggableProperties, mode );
 
     String s3Path = throwIfNullOrEmpty( properties.getProperty( PROTOCOL_S3_OUTPUT_PATH ), "s3Path missing" );
 
@@ -131,7 +136,7 @@ public class RedshiftFactory
    * variables <code>AWS_ACCESS_KEY</code> and <code>AWS_SECRET_KEY</code>. If
    * none of the above contains the credentials, the method returns
    * {@link AWSCredentials#UNKNOWN}.
-   * 
+   *
    * @param properties a {@link Properties} object, which can contain the AWS
    *          credentials.
    * @return an {@link AWSCredentials} installed.
