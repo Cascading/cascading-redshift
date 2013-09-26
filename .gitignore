@@ -10,6 +10,11 @@ target/
 cascading.redshift.i*
 .intellij
 
+*.iml
+*.iws
+*.ipr
+.idea/
+
 .settings
 .project
 .classpath
